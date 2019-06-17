@@ -1,0 +1,18 @@
+consultation-feedback-put:
+  handler: src/handlers/hello-world/post.handler
+  events:
+    - http:
+        path: /hello-world
+        method: post
+        cors: true
+        reqValidatorName: RequestBodyValidation
+        request:
+          parameters:
+            paths:
+              consultationId: true
+        documentation:
+          summary: post hello-world
+          requestBody:
+            description: body for post
+          requestModels:
+            "application/json": PostHelloWorldRequestBody

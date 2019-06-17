@@ -1,0 +1,5 @@
+models:
+  -
+    name: PostHelloWorldRequestBody
+    contentType: "application/json"
+    schema: ${file(src/handlers/hello-world/models/post-request-body.json)}

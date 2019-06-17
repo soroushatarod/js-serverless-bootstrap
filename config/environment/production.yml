@@ -1,0 +1,11 @@
+API_VERSION: "v1"
+CUSTOM_DOMAIN_CERTIFICATE_NAME: "*.zavasrv.com"
+CUSTOM_DOMAIN_NAME: "<name>-service.zavasrv.com"
+DYNAMOOSE_CREATE_TABLES: true
+DYNAMOOSE_UPDATE_TABLES: true
+MARC_VPC_SECURITY_GROUP: "<prod security group>"
+MARC_VPC_SUBNET_ID_1: "<subnet_1>"
+MARC_VPC_SUBNET_ID_2: "<subnet_2>"
+RESOURCE_PREFIX: self:provider.region}:${self:custom.accountId}
+STAGE_NAME: ${self:provider.stage}
+TABLE_HELLO_WORLD:  "${self:service}-hello-world-${self:provider.stage}"

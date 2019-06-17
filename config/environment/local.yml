@@ -1,0 +1,10 @@
+API_VERSION: "v1"
+# AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are specified for dynamoose to connect to local dynamodb
+AWS_ACCESS_KEY_ID: 'something'
+AWS_SECRET_ACCESS_KEY: 'something else'
+DYNAMODB_PORT_NO: 7000
+DYNAMOOSE_CREATE_TABLES: true
+DYNAMOOSE_UPDATE_TABLES: true
+RESOURCE_PREFIX: self:provider.region}:${self:custom.accountId}
+STAGE_NAME: ${self:provider.stage}
+TABLE_HELLO_WORLD:  "${self:service}-hello-world-${self:provider.stage}"
