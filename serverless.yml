@@ -1,0 +1,54 @@
+service: <name>-Service
+
+frameworkVersion: ">=1.1.0 <2.0.0"
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-pseudo-parameters
+  - serverless-reqvalidator-plugin
+  - serverless-aws-documentation
+  - serverless-dynamodb-local
+  - serverless-offline
+  - serverless-webpack
+  - serverless-domain-manager
+
+custom:
+  ${file(config/custom/custom.yml)}
+
+provider:
+  name: aws
+  stackTags:
+    project: Comms-Service
+    stage: ${self:provider.stage}
+    user: ${env:USER, 'nouser'}
+    team: unicorn
+  runtime: nodejs8.10
+  region: eu-west-1
+  stage: ${opt:stage, 'local'}
+  environment:
+    ${file(config/environment/${self:provider.stage}.yml)}
+  vpc:
+    securityGroupIds:
+      - ${self:provider.environment.MARC_VPC_SECURITY_GROUP}
+    subnetIds:
+      - ${self:provider.environment.MARC_VPC_SUBNET_ID_1}
+      - ${self:provider.environment.MARC_VPC_SUBNET_ID_2}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DescribeTable
+        - dynamodb:CreateTable
+      Resource:
+        - "arn:aws:dynamodb:${self:provider.environment.RESOURCE_PREFIX}:table/${self:provider.environment.TABLE_HELLO_WORLD}"
+
+
+functions:
+  ${file(config/functions/functions.yml)}
+
+resources:
+  ${file(config/resources/resources.yml)}

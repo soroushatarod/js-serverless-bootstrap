@@ -1,0 +1,24 @@
+accountId: "#{AWS::AccountId}"
+webpack:
+  webpackConfig: 'webpack.config.js'   # Name of webpack configuration file
+  includeModules: true   # Node modules configuration for packaging
+  packager: 'npm'   # Packager that will be used to package your external modules
+dynamodb:
+  start:
+    port: ${self:provider.environment.DYNAMODB_PORT_NO}
+    inMemory: true
+documentation:
+  ${file(config/documentation/documentation.yml)}
+customDomainEnabled:
+  production: true
+  stage: true
+  sandbox: false
+  local: false
+customDomain:
+  enabled: ${self:custom.customDomainEnabled.${self:provider.stage}}
+  domainName: "${self:provider.environment.CUSTOM_DOMAIN_NAME}"
+  basePath: ''
+  stage: ${self:provider.stage}
+  createRoute53Record: true
+  certificateName: "${self:provider.environment.CUSTOM_DOMAIN_CERTIFICATE_NAME}"
+  endpointType: 'regional'

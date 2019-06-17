@@ -1,0 +1,17 @@
+# package directories
+node_modules
+jspm_packages
+dist
+
+# Serverless
+.serverless
+.dynamodb
+.env
+
+# temp files
+.DS_Store
+
+# unit-tests
+coverage
+junit.xml
+test-results
